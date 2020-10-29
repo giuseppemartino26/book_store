@@ -1,3 +1,5 @@
+package it.unipi.dii.inginf.lsdb.library.publisher;
+
 public class Publisher {
     private  int idpublisher;
     private String name;
@@ -33,15 +35,4 @@ public class Publisher {
         return name;
     }
 
-    public void setIdpublisher(int idpublisher) {
-        this.idpublisher = idpublisher;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

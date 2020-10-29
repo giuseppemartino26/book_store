@@ -1,3 +1,5 @@
+package it.unipi.dii.inginf.lsdb.library.author;
+
 public class Author {
 
     private int idauthor;
@@ -26,22 +28,6 @@ public class Author {
         this.biography = biography;
     }
 
-
-    public void setIdauthor(int idauthor) {
-        this.idauthor = idauthor;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public void setBiography(String biography) {
-        this.biography = biography;
-    }
 
     public int getIdauthor() {
         return idauthor;

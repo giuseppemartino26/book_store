@@ -1,3 +1,4 @@
+package it.unipi.dii.inginf.lsdb.library.book;
 
 public class book  {
 

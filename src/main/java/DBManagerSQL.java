@@ -1,5 +1,10 @@
+import it.unipi.dii.inginf.lsdb.library.author.Author;
+import it.unipi.dii.inginf.lsdb.library.book.book;
+import it.unipi.dii.inginf.lsdb.library.publisher.Publisher;
+
 import java.sql.*;
 import java.util.ArrayList;
+
 
 public class DBManagerSQL {
 
@@ -407,9 +412,9 @@ public class DBManagerSQL {
             e.printStackTrace();
         }
         closeConnection();
-
-
     }
+
+
     public ArrayList<Publisher> ReadListPublisher() {
 
         ArrayList<Publisher> PublisherList = new ArrayList<>();

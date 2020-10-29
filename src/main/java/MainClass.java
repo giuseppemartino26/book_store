@@ -1,3 +1,7 @@
+import it.unipi.dii.inginf.lsdb.library.author.Author;
+import it.unipi.dii.inginf.lsdb.library.book.book;
+import it.unipi.dii.inginf.lsdb.library.publisher.Publisher;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -53,10 +57,10 @@ public class MainClass {
     {
         System.out.println(dbManagerLevel.getBookFromId(a).getIdbook() +"\nTitle:"+dbManagerLevel.getBookFromId(a).getTitle() +"\nPrice:"+dbManagerLevel.getBookFromId(a).getPrice()+
                 "\nCategory:"+dbManagerLevel.getBookFromId(a).getCategory() +"\nNumber of pages:"+ dbManagerLevel.getBookFromId(a).getNumpages()+
-                "\nQuantity: "+dbManagerLevel.getBookFromId(a).getQuantity()+/*"\n Publisher ID: "+ dbManagerLevel.getBookFromId(a).getPub_id()+*/
-                "\nPublication Year: "+dbManagerLevel.getBookFromId(a).getPub_Year()+/*"\nID Author: "+ dbManagerLevel.getAuthorFromBookId(a).getIdauthor()+*/
-                "\nAuthor name: "+ dbManagerLevel.getAuthorFromBookId(a).getLastname() +/*"\nAuthor surname: "+dbManagerLevel.getAuthorFromBookId(a).getLastname()+*/
-                "\nPublisher name: "+dbManagerLevel.getPublisherFromBookId(a).getName()/*"\nPublisher location: "+ dbManagerLevel.getPublisherFromBookId(a).getLocation()*/) ;
+                "\nQuantity: "+dbManagerLevel.getBookFromId(a).getQuantity()+/*"\n it.unipi.dii.inginf.lsdb.library.publisher.Publisher ID: "+ dbManagerLevel.getBookFromId(a).getPub_id()+*/
+                "\nPublication Year: "+dbManagerLevel.getBookFromId(a).getPub_Year()+/*"\nID it.unipi.dii.inginf.lsdb.library.author.Author: "+ dbManagerLevel.getAuthorFromBookId(a).getIdauthor()+*/
+                "\nit.unipi.dii.inginf.lsdb.library.author.Author name: "+ dbManagerLevel.getAuthorFromBookId(a).getLastname() +/*"\nAuthor surname: "+dbManagerLevel.getAuthorFromBookId(a).getLastname()+*/
+                "\nit.unipi.dii.inginf.lsdb.library.publisher.Publisher name: "+dbManagerLevel.getPublisherFromBookId(a).getName()/*"\nPublisher location: "+ dbManagerLevel.getPublisherFromBookId(a).getLocation()*/) ;
 
     }
 
@@ -77,7 +81,7 @@ public class MainClass {
 
         while (true) {
         System.out.println("Welcome to your library application \nChoose an option:\n 1: View list of all the books\n 2: View list of all the authors" +
-                "\n 3: View the list of all publishers\n 4: Add book\n 5: Add author\n 6: Add publisher\n");
+                "\n 3: View the list of all publishers\n 4: Add it.unipi.dii.inginf.lsdb.library.book.book\n 5: Add author\n 6: Add publisher\n");
 
 
       //  dbManagerLevel.getBookFromId(5);
@@ -97,7 +101,7 @@ public class MainClass {
 
                 printBookList(); //stampo la lista di libri
 
-                System.out.println("Select the ID number of the book that you want to view, or click 0 to return to choose another option:");
+                System.out.println("Select the ID number of the it.unipi.dii.inginf.lsdb.library.book.book that you want to view, or click 0 to return to choose another option:");
                 int a = keyboard.nextInt();
                 if (a == 0) {continue;}
 
@@ -193,12 +197,12 @@ public class MainClass {
 
         if (option == 4) {
 
-            System.out.println("Insert the id of the book");
+            System.out.println("Insert the id of the it.unipi.dii.inginf.lsdb.library.book.book");
             int idbook = keyboard.nextInt();
 
             if(dbManagerLevel.checkbook(idbook))
             {
-                System.out.println("ERROR: the book ID is used. Select another id and retry to insert the book\n");
+                System.out.println("ERROR: the it.unipi.dii.inginf.lsdb.library.book.book ID is used. Select another id and retry to insert the it.unipi.dii.inginf.lsdb.library.book.book\n");
                 continue;
             }
 

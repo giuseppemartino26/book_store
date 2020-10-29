@@ -1,5 +1,7 @@
+import it.unipi.dii.inginf.lsdb.library.author.Author;
+import it.unipi.dii.inginf.lsdb.library.book.book;
+import it.unipi.dii.inginf.lsdb.library.publisher.Publisher;
 import org.iq80.leveldb.*;
-import org.iq80.leveldb.util.DbIterator;
 import org.iq80.leveldb.DBIterator;
 
 import static org.iq80.leveldb.impl.Iq80DBFactory.*;
@@ -54,13 +56,13 @@ public class DBManagerLevel {
         putValue("author:3:firstname","Dante");
         putValue("author:3:lastname","Alighieri");
         putValue("author:3:biography","vivo");
-        putValue("book:5:title","Divina Commedia");
-        putValue("book:5:price","44");
-        putValue("book:5:category","storico");
-        putValue("book:5:numpages","1000");
-        putValue("book:5:quantity","2");
-        putValue("book:5:pub_id","3");
-        putValue("book:5:publication_YEAR","2020");
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:5:title","Divina Commedia");
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:5:price","44");
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:5:category","storico");
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:5:numpages","1000");
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:5:quantity","2");
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:5:pub_id","3");
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:5:publication_YEAR","2020");
         putValue("publisher:5:namep","LaLepre");
         putValue("publisher:3:namep","LaLepre2");
         putValue("publisher:5:location","milano");
@@ -203,34 +205,34 @@ public class DBManagerLevel {
             byte[] key = iterator.peekNext().getKey();
 
 
-            if (asString(key).contains("book:"+ id + ":title"))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id + ":title"))
             {
                //  idbook = Character.getNumericValue(asString(key).charAt(5)); //idbook is the fifth char of the key
                 String[] parts = asString(key).split(":");
                 idbook = Integer.parseInt(parts[1]);
                  title = getValue(asString(key));
             }
-            if (asString(key).contains("book:"+ id + ":price"))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id + ":price"))
             {
                 price = Float.parseFloat(getValue(asString(key)));
             }
-            if (asString(key).contains("book:"+ id + ":category"))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id + ":category"))
             {
                category = getValue(asString(key));
             }
-            if (asString(key).contains("book:"+ id + ":numpages"))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id + ":numpages"))
             {
                 numpages = Integer.parseInt(getValue(asString(key)));
             }
-            if (asString(key).contains("book:"+ id + ":quantity"))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id + ":quantity"))
             {
                 quantity =Integer.parseInt(getValue(asString(key)));
             }
-            if (asString(key).contains("book:"+ id + ":pub_id"))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id + ":pub_id"))
             {
                 pub_id =Integer.parseInt(getValue(asString(key)));
             }
-            if (asString(key).contains("book:"+ id + ":publication_YEAR"))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id + ":publication_YEAR"))
             {
                 pub_year =Integer.parseInt(getValue(asString(key)));
             }
@@ -268,7 +270,7 @@ public class DBManagerLevel {
             if (asString(key).contains("book_has_author:"+ id))
             {
                 name = getValue(asString(key));
-              //  System.out.println("get Author: "+getValue(asString(key)));
+              //  System.out.println("get it.unipi.dii.inginf.lsdb.library.author.Author: "+getValue(asString(key)));
             }
             iterator.next();
         }
@@ -324,7 +326,7 @@ public class DBManagerLevel {
         while (iterator.hasNext())
         {
             byte[] key = iterator.peekNext().getKey();
-            if (asString(key).contains("book:"+ id + ":quantity"))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id + ":quantity"))
             {
                 oldquantity = Integer.parseInt(getValue(asString(key)));
                 deleteValue(asString(key));
@@ -351,7 +353,7 @@ public class DBManagerLevel {
         while (iterator.hasNext())
         {
             byte[] key = iterator.peekNext().getKey();
-            if (asString(key).contains("book:"+ id + ":quantity"))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id + ":quantity"))
             {
                 oldquantity = Integer.parseInt(getValue(asString(key)));
                 deleteValue(asString(key));
@@ -377,7 +379,7 @@ public class DBManagerLevel {
         while (iterator.hasNext())
         {
             byte[] key = iterator.peekNext().getKey();
-            if (asString(key).contains("book:"+ id + ":quantity"))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id + ":quantity"))
             {
                 deleteValue(asString(key));
                 putValue(asString(key),String.valueOf(num_copies));
@@ -402,7 +404,7 @@ public class DBManagerLevel {
         while (iterator.hasNext())
         {
             byte[] key = iterator.peekNext().getKey();
-            if (asString(key).contains("book:"+ id))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ id))
             {
                 deleteValue(asString(key));
             }
@@ -427,7 +429,7 @@ public class DBManagerLevel {
         while (iterator.hasNext())
         {
             byte[] key = iterator.peekNext().getKey();
-            if (asString(key).contains("book:"+ idbook))
+            if (asString(key).contains("it.unipi.dii.inginf.lsdb.library.book.book:"+ idbook))
             {
                 conto++;
             }
@@ -510,13 +512,13 @@ public class DBManagerLevel {
     public void addBook(book newBook)
     {
         openDB();
-        putValue("book:"+newBook.getIdbook()+":title",newBook.getTitle());
-        putValue("book:"+newBook.getIdbook()+":price", String.valueOf(newBook.getPrice()));
-        putValue("book:"+newBook.getIdbook()+":category",newBook.getCategory());
-        putValue("book:" +newBook.getIdbook()+":numpages", String.valueOf(newBook.getNumpages()));
-        putValue("book:" +newBook.getIdbook()+":quantity", String.valueOf(newBook.getQuantity()));
-        putValue("book:" +newBook.getIdbook()+":pub_id", String.valueOf(newBook.getPub_id()));
-        putValue("book:" +newBook.getIdbook()+":publication_YEAR", String.valueOf(newBook.getPub_Year()));
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:"+newBook.getIdbook()+":title",newBook.getTitle());
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:"+newBook.getIdbook()+":price", String.valueOf(newBook.getPrice()));
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:"+newBook.getIdbook()+":category",newBook.getCategory());
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:" +newBook.getIdbook()+":numpages", String.valueOf(newBook.getNumpages()));
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:" +newBook.getIdbook()+":quantity", String.valueOf(newBook.getQuantity()));
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:" +newBook.getIdbook()+":pub_id", String.valueOf(newBook.getPub_id()));
+        putValue("it.unipi.dii.inginf.lsdb.library.book.book:" +newBook.getIdbook()+":publication_YEAR", String.valueOf(newBook.getPub_Year()));
 
         closeDB();
 
