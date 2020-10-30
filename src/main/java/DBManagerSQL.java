@@ -1,12 +1,13 @@
 import it.unipi.dii.inginf.lsdb.library.author.Author;
 import it.unipi.dii.inginf.lsdb.library.book.book;
 import it.unipi.dii.inginf.lsdb.library.publisher.Publisher;
+import it.unipi.dii.inginf.lsdb.library.publisher.PublisherDB;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 
-public class DBManagerSQL {
+public class DBManagerSQL implements PublisherDB {
 
     private Connection MyConn = null; //Interface for establishing a connection
     private PreparedStatement PrepareStat = null;
