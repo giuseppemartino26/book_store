@@ -1,4 +1,4 @@
-package it.unipi.dii.inginf.lsdb.library.author;
+package it.unipi.dii.inginf.lsdb.library.entities;
 
 public class Author {
 

@@ -1,15 +1,16 @@
-import it.unipi.dii.inginf.lsdb.library.author.Author;
-import it.unipi.dii.inginf.lsdb.library.book.book;
-import it.unipi.dii.inginf.lsdb.library.publisher.Publisher;
+package it.unipi.dii.inginf.lsdb.library.persistence;
+
+import it.unipi.dii.inginf.lsdb.library.entities.Author;
+import it.unipi.dii.inginf.lsdb.library.entities.book;
+import it.unipi.dii.inginf.lsdb.library.entities.Publisher;
 import org.iq80.leveldb.*;
 import org.iq80.leveldb.DBIterator;
-
 import static org.iq80.leveldb.impl.Iq80DBFactory.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class DBManagerLevel {
+ class DBManagerLevel implements DBManager {
 
     private DB db = null;
 
@@ -553,6 +554,7 @@ public class DBManagerLevel {
         putValue("book_publisher:"+bookid+":",getValue("publisher:"+idpub+":name"));
         closeDB();
     }
+    public void fillbookhasauthor(int bookid, int idauthor){}
 
     public Author viewAuthor(int id)
     {

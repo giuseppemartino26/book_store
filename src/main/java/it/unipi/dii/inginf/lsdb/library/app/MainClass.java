@@ -1,23 +1,31 @@
-import it.unipi.dii.inginf.lsdb.library.author.Author;
-import it.unipi.dii.inginf.lsdb.library.book.book;
-import it.unipi.dii.inginf.lsdb.library.publisher.Publisher;
+package it.unipi.dii.inginf.lsdb.library.app;
+
+import it.unipi.dii.inginf.lsdb.library.entities.*;
+import it.unipi.dii.inginf.lsdb.library.persistence.DBManager;
+import it.unipi.dii.inginf.lsdb.library.persistence.DBManagerFactory;
+import it.unipi.dii.inginf.lsdb.library.persistence.DBManagerType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import  java.util.*;
 
+
 public class MainClass {
 
-   private static DBManagerSQL database = new DBManagerSQL();
-   private static DBManagerLevel dbManagerLevel = new DBManagerLevel();
+    private static final DBManagerFactory factory = DBManagerFactory.create();
+    private static DBManager db = factory.getService(DBManagerType.KV);
+
+
+ /*  private static DBManagerSQL database = new DBManagerSQL();
+   private static DBManagerLevel dbManagerLevel = new DBManagerLevel(); */
 
 
     public static void printBookList()
     {
         ArrayList<book> bookList = new ArrayList<>();
         //bookList = database.ReadList();
-        bookList = dbManagerLevel.ReadList();
+        bookList = db.ReadList();
 
         System.out.println("LISTA DEI LIBRI:");
 
@@ -31,7 +39,7 @@ public class MainClass {
     {
         ArrayList<Publisher> publisherList = new ArrayList<>();
        // publisherList = database.ReadListPublisher();
-        publisherList = dbManagerLevel.ReadListPublisher();
+        publisherList = db.ReadListPublisher();
         System.out.println("LISTA DEI PUBLISHER");
 
         for (int i = 0; i < publisherList.size(); i++)
@@ -44,7 +52,7 @@ public class MainClass {
     {
         ArrayList<Author> authorsList = new ArrayList<>();
         //authorsList = database.ReadListAuthor();
-        authorsList = dbManagerLevel.ReadListAuthor();
+        authorsList = db.ReadListAuthor();
         System.out.println("LISTA DEGLI AUTORI:");
 
         for (int i = 0; i < authorsList.size(); i++)
@@ -55,44 +63,42 @@ public class MainClass {
 
     public static void printBookdetails(int a)
     {
-        System.out.println(dbManagerLevel.getBookFromId(a).getIdbook() +"\nTitle:"+dbManagerLevel.getBookFromId(a).getTitle() +"\nPrice:"+dbManagerLevel.getBookFromId(a).getPrice()+
-                "\nCategory:"+dbManagerLevel.getBookFromId(a).getCategory() +"\nNumber of pages:"+ dbManagerLevel.getBookFromId(a).getNumpages()+
-                "\nQuantity: "+dbManagerLevel.getBookFromId(a).getQuantity()+/*"\n it.unipi.dii.inginf.lsdb.library.publisher.Publisher ID: "+ dbManagerLevel.getBookFromId(a).getPub_id()+*/
-                "\nPublication Year: "+dbManagerLevel.getBookFromId(a).getPub_Year()+/*"\nID it.unipi.dii.inginf.lsdb.library.author.Author: "+ dbManagerLevel.getAuthorFromBookId(a).getIdauthor()+*/
-                "\nit.unipi.dii.inginf.lsdb.library.author.Author name: "+ dbManagerLevel.getAuthorFromBookId(a).getLastname() +/*"\nAuthor surname: "+dbManagerLevel.getAuthorFromBookId(a).getLastname()+*/
-                "\nit.unipi.dii.inginf.lsdb.library.publisher.Publisher name: "+dbManagerLevel.getPublisherFromBookId(a).getName()/*"\nPublisher location: "+ dbManagerLevel.getPublisherFromBookId(a).getLocation()*/) ;
+        System.out.println(db.getBookFromId(a).getIdbook() +"\nTitle:"+db.getBookFromId(a).getTitle() +"\nPrice:"+db.getBookFromId(a).getPrice()+
+                "\nCategory:"+db.getBookFromId(a).getCategory() +"\nNumber of pages:"+ db.getBookFromId(a).getNumpages()+
+                "\nQuantity: "+db.getBookFromId(a).getQuantity()+/*"\n it.unipi.dii.inginf.lsdb.library.publisher.Publisher ID: "+ dbManagerLevel.getBookFromId(a).getPub_id()+*/
+                "\nPublication Year: "+db.getBookFromId(a).getPub_Year()+/*"\nID it.unipi.dii.inginf.lsdb.library.author.Author: "+ dbManagerLevel.getAuthorFromBookId(a).getIdauthor()+*/
+                "\nit.unipi.dii.inginf.lsdb.library.author.Author name: "+ db.getAuthorFromBookId(a).getLastname() +/*"\nAuthor surname: "+dbManagerLevel.getAuthorFromBookId(a).getLastname()+*/
+                "\nit.unipi.dii.inginf.lsdb.library.publisher.Publisher name: "+db.getPublisherFromBookId(a).getName()/*"\nPublisher location: "+ dbManagerLevel.getPublisherFromBookId(a).getLocation()*/) ;
 
     }
 
     public static void printAuthordetails(int a)
     {
-        System.out.println((dbManagerLevel.viewAuthor(a)).getIdauthor() +" "+dbManagerLevel.viewAuthor(a).getFirstname()+" "+dbManagerLevel.viewAuthor(a).getLastname()+" "+dbManagerLevel.viewAuthor(a).getBiography());
+        System.out.println((db.viewAuthor(a)).getIdauthor() +" "+db.viewAuthor(a).getFirstname()+" "+db.viewAuthor(a).getLastname()+" "+db.viewAuthor(a).getBiography());
     }
 
     public static void printPublisherdetails(int a)
     {
-        System.out.println(dbManagerLevel.viewPublisher(a).getIdpublisher()+" "+dbManagerLevel.viewPublisher(a).getName()+" "+dbManagerLevel.viewPublisher(a).getLocation());
+        System.out.println(db.viewPublisher(a).getIdpublisher()+" "+db.viewPublisher(a).getName()+" "+db.viewPublisher(a).getLocation());
     }
 
 
     public static void main(String[] args) {
 
-        dbManagerLevel.fillDB();
+        //se come argomento al main passo "SQL", allora il DB che si considera è l'SQL, altrimenti qualunque altra cosa si scrive il key-value
+        if (args[0].equals("SQL"))
+        {
+            db = factory.getService(DBManagerType.SQL);
+        }
+
+        //dbManagerLevel.fillDB();
 
         while (true) {
         System.out.println("Welcome to your library application \nChoose an option:\n 1: View list of all the books\n 2: View list of all the authors" +
-                "\n 3: View the list of all publishers\n 4: Add it.unipi.dii.inginf.lsdb.library.book.book\n 5: Add author\n 6: Add publisher\n");
-
-
-      //  dbManagerLevel.getBookFromId(5);
-
+                "\n 3: View the list of all publishers\n 4: Add book\n 5: Add author\n 6: Add publisher\n");
 
             Scanner keyboard = new Scanner(System.in);
             int option = keyboard.nextInt();
-
-          /*  System.out.println("vai");
-           int x = keyboard.nextInt();
-           dbManagerLevel.getSurnameAuthorFromBookId(x); */
 
             InputStreamReader leggistringa = new InputStreamReader(System.in);
             BufferedReader buffertastiera = new BufferedReader(leggistringa);
@@ -110,36 +116,23 @@ public class MainClass {
                 System.out.println("Choose:\n 1 (DELETE BOOK)\n 2 (SET QUANTITY)\n 3(INCREASE QUANTITY)\n 4 (DECREASE QUANTITY)\n 5 (VIEW AUTHOR)\n 6 (VIEW PUBLISHER) 0(RETURN TO THE MAIN PAGE\n");
                 int b = keyboard.nextInt();
                 if (b == 1) {
-                    dbManagerLevel.removeBook(a);
+                    db.removeBook(a);
                     System.out.println("Book deleted");
                 }
                 else if (b == 2){
                     System.out.println("Insert the new quantity");
                     int c = keyboard.nextInt();
-                    dbManagerLevel.updateQuantity(c,a);
+                    db.updateQuantity(c,a);
                 }
                 else if (b == 3){
                     //database.increaseQuantity(a);
-                    dbManagerLevel.increaseQuantity(a);
+                    db.increaseQuantity(a);
                 }
                 else if (b == 4){
                    // database.decreaseQuantity(a);
-                    dbManagerLevel.decreaseQuantity(a);
-                }/*
-                else if (b == 5){
-                    authorMethods.makeJDBCConnection();
-                    System.out.println("Insert the id of the author you want to view");
-                    int x = keyboard.nextInt();
-                    authorMethods.viewAuthor(x);
-                    authorMethods.closeConnection();
+                    db.decreaseQuantity(a);
                 }
-                else if (b == 6){
-                    publisherMethods.makeJDBCConnection();
-                    System.out.println("Insert the id of the publisher you want to view");
-                    int y = keyboard.nextInt();
-                    publisherMethods.viewPublisher(y);
-                    publisherMethods.closeConnection();
-                } */
+
                 else if (b == 0){
                     continue;
                 }
@@ -166,7 +159,7 @@ public class MainClass {
             if (b == 0){ continue;}
             if (b == 1){
                // database.removeAuthor(a);
-                dbManagerLevel.removeAuthor(a);
+                db.removeAuthor(a);
             }else { System.out.println("ERROR");}
         }
 
@@ -185,7 +178,7 @@ public class MainClass {
 
             if (b == 1){
             //database.removePublisher(a);
-            dbManagerLevel.removePublisher(a);
+            db.removePublisher(a);
             }
 
             if (b == 0)
@@ -197,12 +190,12 @@ public class MainClass {
 
         if (option == 4) {
 
-            System.out.println("Insert the id of the it.unipi.dii.inginf.lsdb.library.book.book");
+            System.out.println("Insert the id of the book");
             int idbook = keyboard.nextInt();
 
-            if(dbManagerLevel.checkbook(idbook))
+            if(db.checkbook(idbook))
             {
-                System.out.println("ERROR: the it.unipi.dii.inginf.lsdb.library.book.book ID is used. Select another id and retry to insert the it.unipi.dii.inginf.lsdb.library.book.book\n");
+                System.out.println("ERROR: the book ID is used. Select another id and retry to insert the book\n");
                 continue;
             }
 
@@ -217,7 +210,7 @@ public class MainClass {
             int idauthor = keyboard.nextInt();
 
 
-            if(!dbManagerLevel.check(idauthor))
+            if(!db.check(idauthor))
             {
                 System.out.println("ERROR, the author is not present, please insert the author before");
                 continue;
@@ -240,7 +233,7 @@ public class MainClass {
 
             System.out.println("Insert the id of the publisher");
             int id_pub = keyboard.nextInt();
-            if(!dbManagerLevel.checkpub(id_pub))
+            if(!db.checkpub(id_pub))
             {
                 System.out.println("ERROR, the author is not present, please insert the author before");
                 continue;
@@ -248,9 +241,9 @@ public class MainClass {
 
             book booktoadd = new book(idbook,title,price,category,numpages,quantity,id_pub,year);
            // database.addBook(booktoadd);
-            dbManagerLevel.addBook(booktoadd);
+            db.addBook(booktoadd);
             //database.fillbookhasauthor(idbook,idauthor);
-            dbManagerLevel.fillbookhasauthor(idbook,idauthor,id_pub);
+            db.fillbookhasauthor(idbook,idauthor,id_pub);
 
         }
 
@@ -271,7 +264,7 @@ public class MainClass {
 
             Author authortoadd = new Author(idauthor,firstname,lastname,biography);
            // database.addAuthor(authortoadd);
-            dbManagerLevel.addAuthor(authortoadd);
+            db.addAuthor(authortoadd);
 
 
         }
@@ -289,7 +282,7 @@ public class MainClass {
 
             Publisher publishertoadd = new Publisher(idpublisher,name,location);
            // database.addPublisher(publishertoadd);
-            dbManagerLevel.addPublisher(publishertoadd);
+            db.addPublisher(publishertoadd);
 
         }
     }

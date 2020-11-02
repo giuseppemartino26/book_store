@@ -1,4 +1,4 @@
-package it.unipi.dii.inginf.lsdb.library.book;
+package it.unipi.dii.inginf.lsdb.library.entities;
 
 public class book  {
 

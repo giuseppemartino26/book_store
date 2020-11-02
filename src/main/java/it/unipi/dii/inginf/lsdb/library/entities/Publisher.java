@@ -1,4 +1,5 @@
-package it.unipi.dii.inginf.lsdb.library.publisher;
+package it.unipi.dii.inginf.lsdb.library.entities;
+
 
 public class Publisher {
     private  int idpublisher;

@@ -1,19 +1,18 @@
-import it.unipi.dii.inginf.lsdb.library.author.Author;
-import it.unipi.dii.inginf.lsdb.library.book.book;
-import it.unipi.dii.inginf.lsdb.library.publisher.Publisher;
-import it.unipi.dii.inginf.lsdb.library.publisher.PublisherDB;
+package it.unipi.dii.inginf.lsdb.library.persistence;
 
+import it.unipi.dii.inginf.lsdb.library.entities.Author;
+import it.unipi.dii.inginf.lsdb.library.entities.book;
+import it.unipi.dii.inginf.lsdb.library.entities.Publisher;
 import java.sql.*;
 import java.util.ArrayList;
 
 
-public class DBManagerSQL implements PublisherDB {
+ class DBManagerSQL implements DBManager {
 
     private Connection MyConn = null; //Interface for establishing a connection
     private PreparedStatement PrepareStat = null;
 
-    public DBManagerSQL() {
-    }
+    public DBManagerSQL() { }
 
     void log(String string) {
         System.out.println(string);
@@ -414,6 +413,7 @@ public class DBManagerSQL implements PublisherDB {
         }
         closeConnection();
     }
+   public void fillbookhasauthor(int bookid, int idauthor,int idpub){}
 
 
     public ArrayList<Publisher> ReadListPublisher() {
